@@ -19,13 +19,21 @@ const CryptoTableRow = ({ crypto, onAddToSelectedCoins }) => {
       </td>
       <td className='py-3'>{crypto.name}</td>
       <td>{crypto.symbol.toUpperCase()}</td>
-      <td>${crypto.current_price}</td>
-      <td className={`${isNegativeChange ? 'text-red-400' : 'text-green-400'}`}>
+      <td>
+        $
+        {crypto.current_price.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}
+      </td>
+      <td
+        className={`${isNegativeChange ? 'text-red-400' : 'text-emerald-400'}`}
+      >
         {crypto.price_change_percentage_24h.toFixed(2)}%
       </td>
       <td
         className={`${
-          isNegativeChangeValue ? 'text-red-400' : 'text-green-400'
+          isNegativeChangeValue ? 'text-red-400' : 'text-emerald-400'
         }`}
       >
         ${crypto.price_change_24h.toFixed(2)}

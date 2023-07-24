@@ -19,8 +19,8 @@ const CryptoList = ({ cryptoList, onAddToSelectedCoins }) => {
               <th className='text-left'>Coin</th>
               <th className='text-left'></th>
               <th className='text-left'>Price</th>
-              <th className='text-left'>Change (24h)</th>
-              <th className='text-left'>Change ($)</th>
+              <th className='text-left'>24h</th>
+              <th ></th>
               <th className='text-left'>Volume</th>
               <th className='text-left'>Market Cap</th>
               <th></th>
