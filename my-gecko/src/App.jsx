@@ -9,6 +9,7 @@ const App = () => {
   const [cryptoList, setCryptoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
 
+
   // Load the selected coins from local storage on component mount
   useEffect(() => {
     const storedSelectedCoins =
@@ -56,8 +57,8 @@ const App = () => {
 
   return (
     <div className='p-4 h-full w-full bg-gray-100'>
-      <div className='flex justify-evenly'>
-        <h1 className='text-5xl md:text-6xl font-bold my-2 text-slate-700'>
+      <div className='flex justify-evenly w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
+        <h1 className='text-3xl md:text-4xl font-thin text-slate-700 my-auto'>
           Cryptoview
         </h1>
         <TokenSearchBar

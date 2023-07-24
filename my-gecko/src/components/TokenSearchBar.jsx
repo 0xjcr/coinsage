@@ -47,7 +47,7 @@ const TokenSearchBar = ({ allTokens, onAddToSelectedCoins }) => {
         onChange={handleSearchChange}
         onKeyPress={handleKeyPress}
         placeholder='Search for tokens...'
-        className='border-b-4 p-1 md:p-3 my-4 mx-auto focus:outline-none bg-gray-100'
+        className='border-b-2 border-slate-700 p-1 md:p-3 my-4 mx-auto focus:outline-none bg-gray-100/10'
       />
       {searchQuery && (
         <div>

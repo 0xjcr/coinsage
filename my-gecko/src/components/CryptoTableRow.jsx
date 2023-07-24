@@ -1,4 +1,4 @@
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
 import { useState } from 'react';
 
 const CryptoTableRow = ({ crypto, onAddToSelectedCoins }) => {
@@ -47,7 +47,7 @@ const CryptoTableRow = ({ crypto, onAddToSelectedCoins }) => {
           } transition`}
           onClick={handleAddToSelected}
         >
-          <AddCircleIcon />
+          <AddIcon />
         </button>
       </td>
     </tr>
