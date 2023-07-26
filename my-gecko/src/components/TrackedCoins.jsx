@@ -13,38 +13,47 @@ const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {
 
   const getBackgroundColor = (percentChange) => {
     if (percentChange > 5) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300 backdrop-blur  ';
+      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300   ';
     } else if (percentChange >= 2) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300/70 backdrop-blur  ';
+      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300/70  ';
     } else if (percentChange >= 0) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300/50 backdrop-blur  ';
+      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300/50   ';
     } else if (percentChange > -2) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300/50 backdrop-blur';
+      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300/50 ';
     } else if (percentChange > -5) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300/70 backdrop-blur';
+      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300/70 ';
     } else {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300 backdrop-blur';
+      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300 ';
     }
   };
 
+    
+    
   // Helper function to determine if the price change is positive or negative
   const isPositiveChange = (prevValue, currValue) => {
     return parseFloat(currValue) > parseFloat(prevValue);
   };
+    
+    
+    
 
   return (
     <div>
-      <div className='my-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 pb-8 border-b border-gray-200'>
+      <div className='my-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-8 border-b border-gray-200'>
         {trackedCoins.map((coin) => (
           <div
             key={coin.id}
-            className={`p-1  flex items-start border-2  min-w-48 -m-1 rounded-xl ${getBackgroundColor(
+            className={`p-1 hover:scale-105 hover:shadow-cyan-100/50 hover:shadow-xl flex items-start border-2  min-w-48 -m-1 rounded-md ${getBackgroundColor(
               coin.price_change_percentage_24h
             )}`}
           >
             <div className='relative flex my-3'>
-              <div className='w-10 h-10 border shadow shadow-indigo-400 rounded-full absolute flex items-center justify-center bg-white'>
-                <img src={coin.image} alt={''} className='w-6 h-6' />
+              <div className='w-10 h-10 border shadow-md hover:shadow-xl hover:animate-flip shadow-cyan-500/50 hover:shadow-cyan-500/50 rounded-full absolute flex items-center justify-center bg-white '>
+                <img
+                  src={coin.image}
+                  alt={''}
+                  className='w-6 h-6'
+                />
               </div>
             </div>
 
@@ -63,7 +72,7 @@ const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {
                       {coin.name}
                     </p>
                     <div className='flex items-center'>
-                      <p className='text-4xl text-gray-800 font-extralight'>
+                      <p className='text-4xl text-gray-900 font-extralight '>
                         {coin.symbol.toUpperCase()}
                       </p>
                     </div>
@@ -83,7 +92,7 @@ const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {
                 </div>
                 <button
                   onClick={() => onRemoveItem(coin.id)}
-                  className=' mx-2 text-gray-500 hover:text-slate-900 active:text-amber-500'
+                  className=' mx-2 text-gray-500/70 hover:text-slate-900 active:text-amber-500'
                 >
                   <CloseIcon />
                 </button>

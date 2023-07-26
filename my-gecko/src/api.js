@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000/api'; // Update the URL to match your Express server URL
+const API_BASE_URL = 'http://localhost:5000/api'; 
 
 export async function getCoinsByMarketCap() {
   try {

@@ -3,6 +3,7 @@ import TokenSearchBar from './components/TokenSearchBar';
 import CryptoList from './components/CryptoList';
 import TrackedCoins from './components/TrackedCoins';
 import { getCoinsByMarketCap } from './api';
+// import ToggleButton from './components/ToggleButton';
 
 const App = () => {
   const [selectedCoins, setSelectedCoins] = useState([]);
@@ -55,11 +56,13 @@ const App = () => {
     );
   };
 
+  
+
   return (
-    <div className='p-4 h-full w-full bg-gray-100'>
+    <div className='px-6 h-full w-full bg-gray-100'>
       <div className='flex justify-evenly w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
         <h1 className='text-3xl md:text-4xl font-thin text-slate-700 my-auto'>
-          Cryptoview
+          CoinSage
         </h1>
         <TokenSearchBar
           allTokens={cryptoList}

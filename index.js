@@ -17,7 +17,7 @@ app.get('/api/crypto-assets', async (req, res) => {
         params: {
           vs_currency: 'usd',
           order: 'market_cap_desc',
-          per_page: 100,
+          per_page: 1500,
           page: 1,
         },
       }
@@ -32,3 +32,5 @@ app.get('/api/crypto-assets', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server is running on http://localhost:${port}`);
 });
+
+
