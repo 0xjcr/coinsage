@@ -42,3 +42,5 @@ const CryptoList = ({ cryptoList, onAddToSelectedCoins }) => {
 };
 
 export default CryptoList;
+
+

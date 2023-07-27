@@ -1,6 +1,16 @@
 import CloseIcon from '@mui/icons-material/Close';
+import TrackedTile from './TrackedTile';
 
 const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {
+
+ if (!trackedCoins) {
+   return null;
+ }
+
+
+    trackedCoins.sort(
+      (a, b) => b.price_change_percentage_24h - a.price_change_percentage_24h
+    );
   const formatLargeNumber = (num) => {
     if (num >= 1_000_000_000) {
       return (num / 1_000_000_000).toFixed(3) + 'B';
@@ -11,21 +21,34 @@ const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {
     }
   };
 
-  const getBackgroundColor = (percentChange) => {
-    if (percentChange > 5) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300   ';
-    } else if (percentChange >= 2) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300/70  ';
-    } else if (percentChange >= 0) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-emerald-300/50   ';
-    } else if (percentChange > -2) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300/50 ';
-    } else if (percentChange > -5) {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300/70 ';
-    } else {
-      return 'bg-gradient-to-tr from-gray-100/10 via-gray-100 to-red-300 ';
-    }
-  };
+ const getBackgroundColor = (percentChange) => {
+   if (percentChange > 10) {
+     return 'bg-gradient-to-br from-transparent via-transparent to-emerald-700';
+   } else if (percentChange >= 8) {
+     return 'bg-gradient-to-br from-transparent via-transparent to-emerald-600';
+   } else if (percentChange >= 6) {
+     return 'bg-gradient-to-br from-transparent via-transparent to-emerald-500';
+   } else if (percentChange >= 4) {
+     return 'bg-gradient-to-br from-transparent via-transparent to-emerald-400';
+   } else if (percentChange >= 2) {
+     return 'bg-gradient-to-br from-transparent via-transparent to-emerald-300';
+   } else if (percentChange >= 0) {
+     return 'bg-gradient-to-br from-transparent via-transparent to-emerald-200';
+   } else if (percentChange > -2) {
+     return 'bg-gradient-to-tr from-transparent via-transparent to-red-200';
+   } else if (percentChange > -4) {
+     return 'bg-gradient-to-tr from-transparent via-transparent to-red-300';
+   } else if (percentChange > -6) {
+     return 'bg-gradient-to-tr from-transparent via-transparent to-red-400';
+   } else if (percentChange > -8) {
+     return 'bg-gradient-to-tr from-transparent via-transparent to-red-500';
+   } else if (percentChange > -10) {
+     return 'bg-gradient-to-tr from-transparent via-transparent to-red-600';
+   } else {
+     return 'bg-gradient-to-tr from-transparent via-transparent to-red-700';
+   }
+ };
+
 
     
     
@@ -41,64 +64,12 @@ const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {
     <div>
       <div className='my-8 grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 pb-8 border-b border-gray-200'>
         {trackedCoins.map((coin) => (
-          <div
+          <TrackedTile
             key={coin.id}
-            className={`p-1 hover:scale-105 hover:shadow-cyan-100/50 hover:shadow-xl flex items-start border-2  min-w-48 -m-1 rounded-md ${getBackgroundColor(
-              coin.price_change_percentage_24h
-            )}`}
-          >
-            <div className='relative flex my-3'>
-              <div className='w-10 h-10 border shadow-md hover:shadow-xl hover:animate-flip shadow-cyan-500/50 hover:shadow-cyan-500/50 rounded-full absolute flex items-center justify-center bg-white '>
-                <img
-                  src={coin.image}
-                  alt={''}
-                  className='w-6 h-6'
-                />
-              </div>
-            </div>
-
-            {/* <div
-                className={`p-8 rounded-3xl ${getBackgroundColor(
-                  coin.price_change_percentage_24h
-                )} -mr-10 -ml-3 -z-10 `}
-              
-            ></div> */}
-
-            <div className='flex-grow pl-12'>
-              <div className='flex flex-row items-center'>
-                <div className='flex flex-row items-center flex-grow'>
-                  <div className='ml-2'>
-                    <p className='text-md text-gray-700 font-bold whitespace-nowrap'>
-                      {coin.name}
-                    </p>
-                    <div className='flex items-center'>
-                      <p className='text-4xl text-gray-900 font-extralight '>
-                        {coin.symbol.toUpperCase()}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className='mr-12'>
-                  <p className='mx-2'>
-                    {coin.price_change_percentage_24h.toFixed(2)}%
-                  </p>
-                  <p className='text-2xl'>
-                    $
-                    {coin.current_price.toLocaleString(undefined, {
-                      minimumFractionDigits: 2,
-                      maximumFractionDigits: 2,
-                    })}
-                  </p>
-                </div>
-                <button
-                  onClick={() => onRemoveItem(coin.id)}
-                  className=' mx-2 text-gray-500/70 hover:text-slate-900 active:text-amber-500'
-                >
-                  <CloseIcon />
-                </button>
-              </div>
-            </div>
-          </div>
+            coin={coin} // Pass the coin object as a prop to TrackedTile
+            getBackgroundColor={getBackgroundColor} // Pass the getBackgroundColor function as a prop (if needed)
+            onRemoveItem={onRemoveItem} // Pass the onRemoveItem function as a prop (if needed)
+          />
         ))}
       </div>
     </div>

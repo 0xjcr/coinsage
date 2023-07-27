@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import TokenSearchBar from './components/TokenSearchBar';
 import CryptoList from './components/CryptoList';
-import TrackedCoins from './components/TrackedCoins';
+// import TrackedCoins from './components/TrackedCoins';
+import Tabs from './components/Tabs';
 import { getCoinsByMarketCap } from './api';
-// import ToggleButton from './components/ToggleButton';
+
+import ToggleButton from './components/ToggleButton';
 
 const App = () => {
   const [selectedCoins, setSelectedCoins] = useState([]);
   const [cryptoList, setCryptoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
+  // const [showTopCoins, setShowTopCoins] = useState(true);
 
 
   // Load the selected coins from local storage on component mount
@@ -60,8 +63,9 @@ const App = () => {
 
   return (
     <div className='px-6 h-full w-full bg-gray-100'>
-      <div className='flex justify-evenly w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
-        <h1 className='text-3xl md:text-4xl font-thin text-slate-700 my-auto'>
+      <div className='flex justify-start w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
+        <ToggleButton />
+        <h1 className='text-3xl md:text-4xl font-thin text-slate-700 my-auto px-6'>
           CoinSage
         </h1>
         <TokenSearchBar
@@ -75,8 +79,12 @@ const App = () => {
       ) : (
         <>
           {selectedCoins.length > 0 && (
-            <TrackedCoins
-              trackedCoins={selectedCoins}
+            // <TrackedCoins
+            //   trackedCoins={selectedCoins}
+            //   onRemoveItem={handleRemoveFromSelectedCoins}
+            // />
+            <Tabs
+              selectedCoins={selectedCoins}
               onRemoveItem={handleRemoveFromSelectedCoins}
             />
           )}
@@ -93,3 +101,4 @@ const App = () => {
 };
 
 export default App;
+
