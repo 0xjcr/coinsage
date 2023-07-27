@@ -1,12 +1,30 @@
+import React, { useState } from 'react';
 import AddIcon from '@mui/icons-material/Add';
-import { useState } from 'react';
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
-const CryptoTableRow = ({ crypto, onAddToSelectedCoins }) => {
-  const [isClicked, setIsClicked] = useState(false);
+const CryptoTableRow = ({
+  crypto,
+  onAddToSelectedCoins,
+  myPortfolio,
+  setMyPortfolio,
+}) => {
+  const [isTrackClicked, setIsTrackClicked] = useState(false);
+  const [isAddClicked, setIsAddClicked] = useState(false);
 
-  const handleAddToSelected = () => {
+  const handleAddToTracking = () => {
     onAddToSelectedCoins(crypto);
-    setIsClicked(true);
+    setIsTrackClicked(true);
+
+    // Add the token to the tracking list
+    // Note: The logic to update the tracking list might be in the parent component (App).
+    // You can call the appropriate function from the parent component here.
+  };
+
+  const handleAddToMyPortfolio = () => {
+    setIsAddClicked(true);
+
+    // Add the token to the myPortfolio list
+    setMyPortfolio((prevPortfolio) => [...prevPortfolio, crypto]);
   };
 
   const isNegativeChange = crypto.price_change_percentage_24h < 0;
@@ -51,9 +69,17 @@ const CryptoTableRow = ({ crypto, onAddToSelectedCoins }) => {
       <td>
         <button
           className={`text-gray-500 visited:text-gray-200 hover:text-slate-900 active:text-indigo-500 group ${
-            isClicked ? 'text-gray-200' : 'text-gray-500'
+            isTrackClicked ? 'text-gray-200' : 'text-gray-500'
           } transition`}
-          onClick={handleAddToSelected}
+          onClick={handleAddToTracking}
+        >
+          <TrackChangesIcon />
+        </button>
+        <button
+          className={`text-gray-500 visited:text-gray-200 hover:text-slate-900 active:text-indigo-500 group ${
+            isAddClicked ? 'text-gray-200' : 'text-gray-500'
+          } transition`}
+          onClick={handleAddToMyPortfolio}
         >
           <AddIcon />
         </button>

@@ -1,4 +1,3 @@
-import CloseIcon from '@mui/icons-material/Close';
 import TrackedTile from './TrackedTile';
 
 const TrackedCoins = ({ trackedCoins, onRemoveItem }) => {

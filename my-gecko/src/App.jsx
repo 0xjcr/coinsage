@@ -12,7 +12,7 @@ const App = () => {
   const [cryptoList, setCryptoList] = useState([]);
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
   // const [showTopCoins, setShowTopCoins] = useState(true);
-
+  const [myPortfolio, setMyPortfolio] = useState([]); // Your myPortfolio data
 
   // Load the selected coins from local storage on component mount
   useEffect(() => {
@@ -59,8 +59,6 @@ const App = () => {
     );
   };
 
-  
-
   return (
     <div className='px-6 h-full w-full bg-gray-100'>
       <div className='flex justify-start w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
@@ -86,12 +84,15 @@ const App = () => {
             <Tabs
               selectedCoins={selectedCoins}
               onRemoveItem={handleRemoveFromSelectedCoins}
+              myPortfolio={myPortfolio}
             />
           )}
           <div className=''>
             <CryptoList
               cryptoList={cryptoList}
               onAddToSelectedCoins={handleAddToSelectedCoins}
+              myPortfolio={myPortfolio}
+              setMyPortfolio={setMyPortfolio}
             />
           </div>
         </>
