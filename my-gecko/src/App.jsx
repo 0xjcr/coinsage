@@ -75,6 +75,8 @@ const App = () => {
         <TokenSearchBar
           allTokens={cryptoList}
           onAddToSelectedCoins={handleAddToSelectedCoins}
+          myPortfolio={myPortfolio}
+          setMyPortfolio={setMyPortfolio}
         />
       </div>
 

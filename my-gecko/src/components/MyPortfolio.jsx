@@ -30,10 +30,12 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
       });
     });
 
-    coinWeights = coinWeights.map((coin) => ({
-      ...coin,
-      value: (coin.rawValue / totalValue).toFixed(2) * 100,
-    }));
+    coinWeights = coinWeights
+      .map((coin) => ({
+        ...coin,
+        value: Number(((coin.rawValue / totalValue) * 100).toFixed(2)),
+      }))
+      .sort((a, b) => b.value - a.value);
 
     const totalChangePercentage =
       (totalChangeValue / (totalValue - totalChangeValue)) * 100;
@@ -76,6 +78,21 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
             Today's Change (%): {totalChangePercentage.toFixed(2)}%
           </p>
         </div>
+        <div className='ml-6'>
+          {coinWeights.map((coinWeight) => (
+            <div className='flex justify-end space-x-2'>
+              <p className=''>
+                {coinWeight.value === 100
+                  ? '100'
+                  : Math.floor(coinWeight.value * 100) / 100 > 99.99
+                  ? '99.99'
+                  : (Math.floor(coinWeight.value * 100) / 100).toFixed(2)}
+                %
+              </p>
+              <p className=''>{coinWeight.id}</p>
+            </div>
+          ))}
+        </div>
       </div>
       <div className='flex flex-col'>
         {myPortfolio.map((coin) => {
@@ -92,6 +109,9 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
             (c) => c.id === coin.symbol.toUpperCase()
           );
 
+          // Calculate percentageOfPortfolio
+          const percentageOfPortfolio = coinWeight ? coinWeight.value : 0;
+
           return (
             <PortfoilioTile
               coin={coin}
@@ -104,7 +124,7 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
               totalChange={totalChange}
               onRemoveItem={onRemoveItem}
               handleQuantityChange={handleQuantityChange}
-              percentageOfPortfolio={coinWeight ? coinWeight.value : 0}
+              percentageOfPortfolio={percentageOfPortfolio}
             />
           );
         })}

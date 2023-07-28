@@ -1,8 +1,16 @@
 import React, { useState } from 'react';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import AddIcon from '@mui/icons-material/Add';
+import TrackChangesIcon from '@mui/icons-material/TrackChanges';
 
-const TokenSearchBar = ({ allTokens, onAddToSelectedCoins }) => {
+const TokenSearchBar = ({
+  allTokens,
+  onAddToSelectedCoins,
+  myPortfolio,
+  setMyPortfolio,
+}) => {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isTrackClicked, setIsTrackClicked] = useState(false);
+  const [isAddClicked, setIsAddClicked] = useState(false);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value.toLowerCase());
@@ -10,7 +18,7 @@ const TokenSearchBar = ({ allTokens, onAddToSelectedCoins }) => {
 
   const handleKeyPress = (event) => {
     if (!Array.isArray(allTokens)) {
-      return; // If allTokens is not an array, return early
+      return;
     }
 
     if (event.key === 'Enter') {
@@ -24,12 +32,18 @@ const TokenSearchBar = ({ allTokens, onAddToSelectedCoins }) => {
     }
   };
 
-  const handleAddToSelectedCoins = (token) => {
+  const handleAddToTracking = (token) => {
     onAddToSelectedCoins(token);
-    setSearchQuery('');
+    setIsTrackClicked(true);
   };
 
-  // Check if allTokens is an array before filtering
+  const handleAddToMyPortfolio = (token) => {
+    if (!myPortfolio.some((portfolioCoin) => portfolioCoin.id === token.id)) {
+      setIsAddClicked(true);
+      setMyPortfolio((prevPortfolio) => [...prevPortfolio, token]);
+    }
+  };
+
   const filteredTokens =
     Array.isArray(allTokens) && searchQuery
       ? allTokens.filter(
@@ -55,7 +69,7 @@ const TokenSearchBar = ({ allTokens, onAddToSelectedCoins }) => {
             filteredTokens.map((token) => (
               <div
                 key={token.id}
-                className='flex items-center justify-between p-2 my-2 border rounded-full'
+                className='flex items-center justify-between p-2 my-2 border border-black rounded-full'
               >
                 <div className='flex items-center'>
                   <img
@@ -65,12 +79,24 @@ const TokenSearchBar = ({ allTokens, onAddToSelectedCoins }) => {
                   />
                   {token.name} ({token.symbol.toUpperCase()})
                 </div>
-                <button
-                  className='text-gray-500 hover:text-slate-900'
-                  onClick={() => handleAddToSelectedCoins(token)}
-                >
-                  <AddCircleIcon />
-                </button>
+                <div className='flex space-x-3 ml-6'>
+                  <button
+                    className={`text-gray-500 hover:text-slate-900 ${
+                      isTrackClicked ? 'text-gray-200' : 'text-gray-500'
+                    }`}
+                    onClick={() => handleAddToTracking(token)}
+                  >
+                    <TrackChangesIcon />
+                  </button>
+                  <button
+                    className={`text-gray-500 hover:text-slate-900 ${
+                      isAddClicked ? 'text-gray-200' : 'text-gray-500'
+                    }`}
+                    onClick={() => handleAddToMyPortfolio(token)}
+                  >
+                    <AddIcon />
+                  </button>
+                </div>
               </div>
             ))
           ) : (
