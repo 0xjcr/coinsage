@@ -8,9 +8,9 @@ const Tabs = ({
   onRemoveItem,
   myPortfolio,
   onRemoveFromPortfolio,
+  setActiveTab, // Added setActiveTab as a prop
+  activeTab, // Added activeTab as a prop
 }) => {
-  const [activeTab, setActiveTab] = useState('Tracking');
-
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };

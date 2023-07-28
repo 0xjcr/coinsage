@@ -7,6 +7,8 @@ const TokenSearchBar = ({
   onAddToSelectedCoins,
   myPortfolio,
   setMyPortfolio,
+  isPortfolioTabActive, // accept isPortfolioTabActive as a prop
+  handleAddToMyPortfolio,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isTrackClicked, setIsTrackClicked] = useState(false);
@@ -18,7 +20,7 @@ const TokenSearchBar = ({
 
   const handleKeyPress = (event) => {
     if (!Array.isArray(allTokens)) {
-      return;
+      return; // If allTokens is not an array, return early
     }
 
     if (event.key === 'Enter') {
@@ -26,7 +28,13 @@ const TokenSearchBar = ({
         (token) => token.symbol.toLowerCase() === searchQuery
       );
       if (tokenToAdd) {
-        onAddToSelectedCoins(tokenToAdd);
+        if (isPortfolioTabActive) {
+          // If the Portfolio tab is active, add to myPortfolio
+          handleAddToMyPortfolio(tokenToAdd);
+        } else {
+          // If the Portfolio tab is not active, add to selectedCoins
+          onAddToSelectedCoins(tokenToAdd);
+        }
         setSearchQuery('');
       }
     }
@@ -37,12 +45,7 @@ const TokenSearchBar = ({
     setIsTrackClicked(true);
   };
 
-  const handleAddToMyPortfolio = (token) => {
-    if (!myPortfolio.some((portfolioCoin) => portfolioCoin.id === token.id)) {
-      setIsAddClicked(true);
-      setMyPortfolio((prevPortfolio) => [...prevPortfolio, token]);
-    }
-  };
+  
 
   const filteredTokens =
     Array.isArray(allTokens) && searchQuery

@@ -13,7 +13,8 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true); // State to track loading status
   // const [showTopCoins, setShowTopCoins] = useState(true);
   const [myPortfolio, setMyPortfolio] = useState([]); // Your myPortfolio data
-
+   const [isPortfolioTabActive, setIsPortfolioTabActive] = useState(false);
+   const [activeTab, setActiveTab] = useState('Tracking');
   // Load the selected coins from local storage on component mount
   useEffect(() => {
     const storedSelectedCoins =
@@ -65,6 +66,17 @@ const App = () => {
     );
   };
 
+
+const handleAddToMyPortfolio = (tokenToAdd) => {
+  // Check if the tokenToAdd is already in myPortfolio
+  if (
+    !myPortfolio.some((portfolioCoin) => portfolioCoin.id === tokenToAdd.id)
+  ) {
+    // If it's not, add it to myPortfolio
+    setMyPortfolio((prevPortfolio) => [...prevPortfolio, tokenToAdd]);
+  }
+};
+
   return (
     <div className='px-6 h-full w-full bg-gray-100'>
       <div className='flex justify-start w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
@@ -77,6 +89,8 @@ const App = () => {
           onAddToSelectedCoins={handleAddToSelectedCoins}
           myPortfolio={myPortfolio}
           setMyPortfolio={setMyPortfolio}
+          isPortfolioTabActive={activeTab === 'MyPortfolio'} // pass activeTab state as isPortfolioTabActive prop
+          handleAddToMyPortfolio={handleAddToMyPortfolio}
         />
       </div>
 
@@ -94,6 +108,8 @@ const App = () => {
               onRemoveItem={handleRemoveFromSelectedCoins}
               myPortfolio={myPortfolio}
               onRemoveFromPortfolio={onRemoveItem}
+              setActiveTab={setActiveTab}
+              activeTab={activeTab}
             />
           )}
           <div className=''>
