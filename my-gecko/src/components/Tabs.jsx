@@ -3,7 +3,12 @@ import React, { useState } from 'react';
 import TrackedCoins from './TrackedCoins';
 import MyPortfolio from './MyPortfolio';
 
-const Tabs = ({ selectedCoins, onRemoveItem, myPortfolio }) => {
+const Tabs = ({
+  selectedCoins,
+  onRemoveItem,
+  myPortfolio,
+  onRemoveFromPortfolio,
+}) => {
   const [activeTab, setActiveTab] = useState('Tracking');
 
   const handleTabClick = (tab) => {
@@ -48,7 +53,12 @@ const Tabs = ({ selectedCoins, onRemoveItem, myPortfolio }) => {
           onRemoveItem={onRemoveItem}
         />
       )}
-      {activeTab === 'MyPortfolio' && <MyPortfolio myPortfolio={myPortfolio} />}
+      {activeTab === 'MyPortfolio' && (
+        <MyPortfolio
+          myPortfolio={myPortfolio}
+          onRemoveItem={onRemoveFromPortfolio}
+        />
+      )}
     </div>
   );
 };

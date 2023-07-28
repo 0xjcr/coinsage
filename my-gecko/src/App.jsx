@@ -59,6 +59,12 @@ const App = () => {
     );
   };
 
+  const onRemoveItem = (id) => {
+    setMyPortfolio((prevPortfolio) =>
+      prevPortfolio.filter((coin) => coin.id !== id)
+    );
+  };
+
   return (
     <div className='px-6 h-full w-full bg-gray-100'>
       <div className='flex justify-start w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
@@ -85,6 +91,7 @@ const App = () => {
               selectedCoins={selectedCoins}
               onRemoveItem={handleRemoveFromSelectedCoins}
               myPortfolio={myPortfolio}
+              onRemoveFromPortfolio={onRemoveItem}
             />
           )}
           <div className=''>
@@ -93,6 +100,7 @@ const App = () => {
               onAddToSelectedCoins={handleAddToSelectedCoins}
               myPortfolio={myPortfolio}
               setMyPortfolio={setMyPortfolio}
+              onRemoveItem={onRemoveItem}
             />
           </div>
         </>

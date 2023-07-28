@@ -14,21 +14,26 @@ const CryptoTableRow = ({
   const handleAddToTracking = () => {
     onAddToSelectedCoins(crypto);
     setIsTrackClicked(true);
-
-    // Add the token to the tracking list
-    // Note: The logic to update the tracking list might be in the parent component (App).
-    // You can call the appropriate function from the parent component here.
   };
 
   const handleAddToMyPortfolio = () => {
-    setIsAddClicked(true);
+    // Check if the coin is already present in myPortfolio
+    if (!myPortfolio.some((portfolioCoin) => portfolioCoin.id === crypto.id)) {
+      setIsAddClicked(true);
 
-    // Add the token to the myPortfolio list
-    setMyPortfolio((prevPortfolio) => [...prevPortfolio, crypto]);
+      // Add the token to the myPortfolio list
+      setMyPortfolio((prevPortfolio) => [...prevPortfolio, crypto]);
+    }
   };
 
   const isNegativeChange = crypto.price_change_percentage_24h < 0;
   const isNegativeChangeValue = crypto.price_change_24h < 0;
+
+  let priceChangePercentage = crypto.price_change_percentage_24h;
+  let priceChangeValue = crypto.price_change_24h;
+
+  if (priceChangePercentage === null) priceChangePercentage = 0;
+  if (priceChangeValue === null) priceChangeValue = 0;
 
   return (
     <tr className='border-t'>
@@ -47,14 +52,14 @@ const CryptoTableRow = ({
       <td
         className={`${isNegativeChange ? 'text-red-400' : 'text-emerald-400'}`}
       >
-        {crypto.price_change_percentage_24h.toFixed(2)}%
+        {priceChangePercentage.toFixed(2)}%
       </td>
       <td
         className={`${
           isNegativeChangeValue ? 'text-red-400' : 'text-emerald-400'
         }`}
       >
-        ${crypto.price_change_24h.toFixed(2)}
+        ${priceChangeValue.toFixed(2)}
       </td>
       <td>
         {crypto.total_volume > 1_000_000_000
