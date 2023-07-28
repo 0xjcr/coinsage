@@ -80,7 +80,7 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
         </div>
         <div className='ml-6'>
           {coinWeights.map((coinWeight) => (
-            <div className='flex justify-end space-x-2'>
+            <div className='flex justify-end space-x-2 border rounded-md px-4 my-1 shadow-sm shadow-cyan-400/30 bg-cyan-200/10'>
               <p className=''>
                 {coinWeight.value === 100
                   ? '100'
@@ -95,7 +95,13 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
         </div>
       </div>
       <div className='flex flex-col'>
-        {myPortfolio.map((coin) => {
+        {coinWeights.map((coinWeight) => {
+          const coin = myPortfolio.find(
+            (c) => c.symbol.toUpperCase() === coinWeight.id
+          );
+
+          if (!coin) return null;
+
           const isNegativeChange = coin.price_change_percentage_24h < 0;
           const isNegativeChangeValue = coin.price_change_24h < 0;
           const priceChangePercentage = coin.price_change_percentage_24h || 0;
@@ -103,14 +109,6 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
           const quantity = quantities[coin.id] || 0;
           const totalValue = coin.current_price * quantity;
           const totalChange = priceChangeValue * quantity;
-
-          // Find the corresponding coin weight
-          const coinWeight = coinWeights.find(
-            (c) => c.id === coin.symbol.toUpperCase()
-          );
-
-          // Calculate percentageOfPortfolio
-          const percentageOfPortfolio = coinWeight ? coinWeight.value : 0;
 
           return (
             <PortfoilioTile
@@ -124,7 +122,7 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
               totalChange={totalChange}
               onRemoveItem={onRemoveItem}
               handleQuantityChange={handleQuantityChange}
-              percentageOfPortfolio={percentageOfPortfolio}
+              percentageOfPortfolio={coinWeight.value}
             />
           );
         })}
