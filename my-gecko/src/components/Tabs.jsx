@@ -1,4 +1,5 @@
 import TrackChangesIcon from '@mui/icons-material/TrackChanges';
+import AddIcon from '@mui/icons-material/Add';
 import React, { useState } from 'react';
 import TrackedCoins from './TrackedCoins';
 import MyPortfolio from './MyPortfolio';
@@ -42,6 +43,11 @@ const Tabs = ({
           } text-lg font-medium`}
           onClick={() => handleTabClick('MyPortfolio')}
         >
+          <AddIcon
+            className={`${
+              activeTab === 'MyPortfolio' ? 'text-cyan-500' : 'text-gray-500'
+            } mr-2`}
+          />
           My Portfolio
         </button>
       </div>

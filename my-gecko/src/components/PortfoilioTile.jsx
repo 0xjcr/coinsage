@@ -40,14 +40,14 @@ const formattedQuantity = formatNumber(quantity);
       >
         <CloseIcon />
       </button>
-      <p className=''>
+      {/* <p className=''>
         {percentageOfPortfolio === 100
           ? '100'
           : Math.floor(percentageOfPortfolio * 100) / 100 > 99.99
           ? '99.99'
           : (Math.floor(percentageOfPortfolio * 100) / 100).toFixed(2)}
         %
-      </p>
+      </p> */}
 
       <p className=''>{coin.name}</p>
       <p className=''>{coin.symbol.toUpperCase()}</p>
