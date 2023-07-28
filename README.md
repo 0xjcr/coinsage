@@ -1,7 +1,7 @@
-# Cryptoview
+# Coinsage
 ### A customizable, aesthetic crypto price tracker
 
-Cryptoview is a customizable and aesthetically pleasing crypto price tracker. It allows users to keep track of the latest cryptocurrency prices and monitor their favorite coins easily. With a user-friendly interface and intuitive design, Cryptoview makes it simple for users to stay up-to-date with the ever-changing crypto market.
+Coinsage is a customizable and aesthetically pleasing crypto price tracker. It allows users to keep track of the latest cryptocurrency prices and monitor their favorite coins easily. With a user-friendly interface and intuitive design, Coinsage makes it simple for users to stay up-to-date with the ever-changing crypto market.
 
 
 
