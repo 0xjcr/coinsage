@@ -13,9 +13,13 @@ Key Features
 - User-friendly Interface: Coinsage provides an intuitive and clean interface that makes navigating through the app a breeze.
 
 
-![Coinsage](./public/coinsage-tracking.png)
-![Coinsage](./public/coinsage-portfolio.png)
-![Coinsage](./public/coinsage-searchbar.png)
+### Coinsage Tracking View
+![Coinsage Tracking](my-gecko/public/coinsage-tracking.png)
+### Coinsage Portfolio View
+![Coinsage Portfolio](my-gecko/public/coinsage-portfolio.png)
+### Coinsage Searchbar View
+![Coinsage Searchbar](my-gecko/public/coinsage-searchbar.png)
+
 
 
 
