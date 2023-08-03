@@ -8,7 +8,7 @@ Key Features
 
 - Portfolio Tracker: Monitor your crypto portfolio with precision. Keep track of the value of your holdings and track their performance over time.
 
-- Customizable Watchlist: Create your personalized watchlist by adding the cryptocurrencies you are interested in. Quickly access essential information without the clutter.
+- Customizable Trackinglist: Create your personalized Trackinglist by adding the cryptocurrencies you are interested in. Quickly access essential information without the clutter. Items in the Tracking list are color-coded with varying shades of red or green, indicating the intensity of the token's price change over the last 24 hours. 
 
 - User-friendly Interface: Coinsage provides an intuitive and clean interface that makes navigating through the app a breeze.
 
