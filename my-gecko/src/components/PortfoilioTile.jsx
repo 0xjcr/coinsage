@@ -30,7 +30,7 @@ const PortfoilioTile = ({
       <p className=''>{coin.name}</p>
       <p className='text-2xl text-slate-100'>{coin.symbol.toUpperCase()}</p>
       <input
-        className='focus:bg-transparent focus:ring-0 active:ring-0 focus:outline-none bg-transparent border '
+        className='focus:bg-transparent focus:ring-0 active:ring-0 focus:outline-none bg-transparent border-b '
         type='text'
         placeholder=''
         value={quantity}

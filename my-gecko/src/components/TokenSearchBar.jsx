@@ -68,7 +68,7 @@ const TokenSearchBar = ({
             filteredTokens.map((token) => (
               <div
                 key={token.id}
-                className='flex items-center justify-between p-2 my-2 border border-black rounded-lg hover:shadow-sm hover:scale-105 hover:shadow-cyan-400/50 bg-white'
+                className='flex items-center justify-between p-2 my-2 border border-black rounded-lg hover:shadow-sm hover:scale-105 hover:shadow-cyan-400/50 bg-white/60'
               >
                 <div className='flex items-center'>
                   <img
@@ -80,16 +80,16 @@ const TokenSearchBar = ({
                 </div>
                 <div className='flex space-x-3 ml-6'>
                   <button
-                    className={`text-gray-500 hover:text-slate-900 ${
-                      isTrackClicked ? 'text-gray-200' : 'text-gray-500'
+                    className={`text-cyan-700 hover:text-indigo-900 ${
+                      isTrackClicked ? 'text-gray-200' : 'text-gray-600'
                     }`}
                     onClick={() => handleAddToTracking(token)}
                   >
                     <TrackChangesIcon />
                   </button>
                   <button
-                    className={`text-gray-500 hover:text-slate-900 ${
-                      isAddClicked ? 'text-gray-200' : 'text-gray-500'
+                    className={`text-cyan-700 hover:text-indigo-900 ${
+                      isAddClicked ? 'text-gray-200' : 'text-gray-600'
                     }`}
                     onClick={() => handleAddToMyPortfolio(token)}
                   >
