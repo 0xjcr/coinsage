@@ -4,7 +4,7 @@ const TrackedTile = ({ coin, getBackgroundColor, onRemoveItem }) => {
   return (
     <div
       key={coin.id}
-      className={`p-1 hover:scale-105 hover:shadow-cyan-100/50 hover:shadow-xl flex items-start border-2  min-w-48 -m-1 rounded-md ${getBackgroundColor(
+      className={`p-1 shadow-cyan-100/50 shadow flex items-start   min-w-48 -m-1 rounded-md ${getBackgroundColor(
         coin.price_change_percentage_24h
       )}`}
     >
@@ -14,22 +14,15 @@ const TrackedTile = ({ coin, getBackgroundColor, onRemoveItem }) => {
         </div>
       </div>
 
-      {/* <div
-                className={`p-8 rounded-3xl ${getBackgroundColor(
-                  coin.price_change_percentage_24h
-                )} -mr-10 -ml-3 -z-10 `}
-              
-            ></div> */}
-
-      <div className='flex-grow pl-12'>
+      <div className='flex-grow pl-12 text-slate-100'>
         <div className='flex flex-row items-center'>
           <div className='flex flex-row items-center flex-grow'>
             <div className='ml-2'>
-              <p className='text-md text-gray-700 font-bold whitespace-nowrap'>
+              <p className='text-md text-white font-bold whitespace-nowrap'>
                 {coin.name}
               </p>
               <div className='flex items-center'>
-                <p className='text-4xl text-gray-900 font-extralight '>
+                <p className='text-4xl text-slate-100 font-extralight '>
                   {coin.symbol.toUpperCase()}
                 </p>
               </div>

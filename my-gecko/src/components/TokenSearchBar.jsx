@@ -7,7 +7,7 @@ const TokenSearchBar = ({
   onAddToSelectedCoins,
   myPortfolio,
   setMyPortfolio,
-  isPortfolioTabActive, // accept isPortfolioTabActive as a prop
+  isPortfolioTabActive,
   handleAddToMyPortfolio,
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -20,7 +20,7 @@ const TokenSearchBar = ({
 
   const handleKeyPress = (event) => {
     if (!Array.isArray(allTokens)) {
-      return; // If allTokens is not an array, return early
+      return;
     }
 
     if (event.key === 'Enter') {
@@ -29,10 +29,8 @@ const TokenSearchBar = ({
       );
       if (tokenToAdd) {
         if (isPortfolioTabActive) {
-          // If the Portfolio tab is active, add to myPortfolio
           handleAddToMyPortfolio(tokenToAdd);
         } else {
-          // If the Portfolio tab is not active, add to selectedCoins
           onAddToSelectedCoins(tokenToAdd);
         }
         setSearchQuery('');
@@ -44,8 +42,6 @@ const TokenSearchBar = ({
     onAddToSelectedCoins(token);
     setIsTrackClicked(true);
   };
-
-  
 
   const filteredTokens =
     Array.isArray(allTokens) && searchQuery
@@ -64,7 +60,7 @@ const TokenSearchBar = ({
         onChange={handleSearchChange}
         onKeyPress={handleKeyPress}
         placeholder='Search for tokens...'
-        className='border-b-2 border-slate-700 p-1 md:p-3 my-4 mx-auto focus:outline-none bg-gray-100/10'
+        className='border-b-2 border-cyan-500 p-1 md:p-3 my-4 mx-auto focus:outline-none bg-gray-100/10 '
       />
       {searchQuery && (
         <div>
@@ -72,7 +68,7 @@ const TokenSearchBar = ({
             filteredTokens.map((token) => (
               <div
                 key={token.id}
-                className='flex items-center justify-between p-2 my-2 border border-black rounded-full'
+                className='flex items-center justify-between p-2 my-2 border border-black rounded-lg hover:shadow-sm hover:scale-105 hover:shadow-cyan-400/50 bg-white'
               >
                 <div className='flex items-center'>
                   <img

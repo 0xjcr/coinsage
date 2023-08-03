@@ -53,45 +53,24 @@ const MyPortfolio = ({ myPortfolio, setMyPortfolio, onRemoveItem }) => {
   const isNegativeTotalChange = totalChangeValue < 0;
 
   return (
-    <div className='mt-6 py-2 '>
+    <div className='mt-6 py-2 text-slate-100'>
       <div className='flex justify-between m-2 p-2 border border-gray-300 rounded w-full'>
-        <div>
-          <p>
-            Total Value: $
+        <div className='flex space-x-4'>
+          <p className='text-slate-100'>Portfolio Value: $</p>
+          <p className='text-cyan-200'>
             {totalValue.toLocaleString(undefined, {
               minimumFractionDigits: 2,
               maximumFractionDigits: 2,
             })}
           </p>
-          <p
-            className={`${
+          <div
+            className={`flex space-x-4 ${
               isNegativeTotalChange ? 'text-red-400' : 'text-green-400'
             }`}
           >
-            Today's Change ($): ${totalChangeValue.toFixed(2)}
-          </p>
-          <p
-            className={`${
-              isNegativeTotalChange ? 'text-red-400' : 'text-green-400'
-            }`}
-          >
-            Today's Change (%): {totalChangePercentage.toFixed(2)}%
-          </p>
-        </div>
-        <div className='ml-6'>
-          {coinWeights.map((coinWeight) => (
-            <div className='flex justify-end space-x-2 border rounded-md px-4 my-1 shadow-sm shadow-cyan-400/30 bg-cyan-200/10'>
-              <p className=''>
-                {coinWeight.value === 100
-                  ? '100'
-                  : Math.floor(coinWeight.value * 100) / 100 > 99.99
-                  ? '99.99'
-                  : (Math.floor(coinWeight.value * 100) / 100).toFixed(2)}
-                %
-              </p>
-              <p className=''>{coinWeight.id}</p>
-            </div>
-          ))}
+            <p>24h Change: ${totalChangeValue.toFixed(2)}</p>
+            <p>{totalChangePercentage.toFixed(2)}%</p>
+          </div>
         </div>
       </div>
       <div className='flex flex-col'>

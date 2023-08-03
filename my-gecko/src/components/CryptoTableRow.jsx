@@ -17,11 +17,9 @@ const CryptoTableRow = ({
   };
 
   const handleAddToMyPortfolio = () => {
-    // Check if the coin is already present in myPortfolio
     if (!myPortfolio.some((portfolioCoin) => portfolioCoin.id === crypto.id)) {
       setIsAddClicked(true);
 
-      // Add the token to the myPortfolio list
       setMyPortfolio((prevPortfolio) => [...prevPortfolio, crypto]);
     }
   };
@@ -36,8 +34,8 @@ const CryptoTableRow = ({
   if (priceChangeValue === null) priceChangeValue = 0;
 
   return (
-    <tr className='border-t'>
-      <td>
+    <tr className='border-t text-slate-100'>
+      <td className='px-2 min-w-[50px]'>
         <img src={crypto.image} alt={crypto.name} className='ml-2 w-6 h-6' />
       </td>
       <td className='py-3'>{crypto.name}</td>
@@ -73,16 +71,16 @@ const CryptoTableRow = ({
       </td>
       <td>
         <button
-          className={`text-gray-500 visited:text-gray-200 hover:text-slate-900 active:text-indigo-500 group ${
-            isTrackClicked ? 'text-gray-200' : 'text-gray-500'
+          className={`text-cyan-200 visited:text-gray-500 hover:text-slate-200 active:text-indigo-500 group ${
+            isTrackClicked ? 'text-gray-200/50' : 'text-cyan-500'
           } transition`}
           onClick={handleAddToTracking}
         >
           <TrackChangesIcon />
         </button>
         <button
-          className={`text-gray-500 visited:text-gray-200 hover:text-slate-900 active:text-indigo-500 group ${
-            isAddClicked ? 'text-gray-200' : 'text-gray-500'
+          className={`text-cyan-200 visited:text-gray-500 hover:text-slate-200 active:text-indigo-500 group ${
+            isAddClicked ? 'text-gray-200/50' : 'text-cyan-500'
           } transition`}
           onClick={handleAddToMyPortfolio}
         >

@@ -1,52 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import TokenSearchBar from './components/TokenSearchBar';
 import CryptoList from './components/CryptoList';
-// import TrackedCoins from './components/TrackedCoins';
 import Tabs from './components/Tabs';
 import { getCoinsByMarketCap } from './api';
-
-import ToggleButton from './components/ToggleButton';
+import ChangeHistoryIcon from '@mui/icons-material/ChangeHistory';
 
 const App = () => {
   const [selectedCoins, setSelectedCoins] = useState([]);
   const [cryptoList, setCryptoList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true); // State to track loading status
-  // const [showTopCoins, setShowTopCoins] = useState(true);
-  const [myPortfolio, setMyPortfolio] = useState([]); // Your myPortfolio data
-   const [isPortfolioTabActive, setIsPortfolioTabActive] = useState(false);
-   const [activeTab, setActiveTab] = useState('Tracking');
-  // Load the selected coins from local storage on component mount
+  const [isLoading, setIsLoading] = useState(true);
+  const [myPortfolio, setMyPortfolio] = useState([]);
+  const [activeTab, setActiveTab] = useState('Tracking');
+
   useEffect(() => {
-    const storedSelectedCoins =
-      JSON.parse(localStorage.getItem('selectedCoins')) || [];
-    setSelectedCoins(storedSelectedCoins);
+    const storedSelectedCoins = JSON.parse(
+      localStorage.getItem('selectedCoins')
+    );
+    if (storedSelectedCoins && Array.isArray(storedSelectedCoins)) {
+      setSelectedCoins(storedSelectedCoins);
+    }
+
+    const storedMyPortfolio = JSON.parse(localStorage.getItem('myPortfolio'));
+    if (storedMyPortfolio && Array.isArray(storedMyPortfolio)) {
+      setMyPortfolio(storedMyPortfolio);
+    }
+
+    const storedActiveTab = localStorage.getItem('activeTab');
+    if (storedActiveTab) {
+      setActiveTab(storedActiveTab);
+    } else {
+      setActiveTab('Tracking');
+    }
   }, []);
 
-  // Save the selected coins to local storage whenever it changes
   useEffect(() => {
     localStorage.setItem('selectedCoins', JSON.stringify(selectedCoins));
   }, [selectedCoins]);
 
   useEffect(() => {
-    // Fetch the list of crypto assets sorted by market cap
+    localStorage.setItem('myPortfolio', JSON.stringify(myPortfolio));
+  }, [myPortfolio]);
+
+  useEffect(() => {
+    localStorage.setItem('activeTab', activeTab);
+  }, [activeTab]);
+
+  useEffect(() => {
     getCoinsByMarketCap()
       .then((data) => {
         setCryptoList(data);
-        setIsLoading(false); // Set loading to false after data is fetched successfully
+        setIsLoading(false);
       })
       .catch((error) => {
         console.error(error);
-        setCryptoList([]); // Set cryptoList to an empty array in case of an error
-        setIsLoading(false); // Set loading to false after data fetch fails
+        setCryptoList([]);
+        setIsLoading(false);
       });
   }, []);
 
   const handleAddToSelectedCoins = (coin) => {
-    // Check if the coin is already present in selectedCoins
     if (!selectedCoins.some((selectedCoin) => selectedCoin.id === coin.id)) {
-      // Find the complete coin object from the cryptoList
       const completeCoin = cryptoList.find((item) => item.id === coin.id);
-      // Add the complete coin object to the selectedCoins state
       setSelectedCoins((prevSelectedCoins) => [
         ...prevSelectedCoins,
         completeCoin,
@@ -60,36 +74,35 @@ const App = () => {
     );
   };
 
+  const handleAddToMyPortfolio = (tokenToAdd) => {
+    if (
+      !myPortfolio.some((portfolioCoin) => portfolioCoin.id === tokenToAdd.id)
+    ) {
+      setMyPortfolio((prevPortfolio) => [...prevPortfolio, tokenToAdd]);
+    }
+  };
+
   const onRemoveItem = (id) => {
     setMyPortfolio((prevPortfolio) =>
       prevPortfolio.filter((coin) => coin.id !== id)
     );
   };
 
-
-const handleAddToMyPortfolio = (tokenToAdd) => {
-  // Check if the tokenToAdd is already in myPortfolio
-  if (
-    !myPortfolio.some((portfolioCoin) => portfolioCoin.id === tokenToAdd.id)
-  ) {
-    // If it's not, add it to myPortfolio
-    setMyPortfolio((prevPortfolio) => [...prevPortfolio, tokenToAdd]);
-  }
-};
-
   return (
-    <div className='px-6 h-full w-full bg-gray-100'>
-      <div className='flex justify-start w-full bg-gradient-to-t from-gray-100 via-gray-100 to-gray-200 border-b border-gray-200'>
-        <ToggleButton />
-        <h1 className='text-3xl md:text-4xl font-thin text-slate-700 my-auto px-6'>
-          CoinSage
-        </h1>
+    <div className='px-6 h-full w-full bg-gray-800'>
+      <div className='flex justify-evenly w-full  border-b border-gray-200'>
+        <div className='flex items-center'>
+          <ChangeHistoryIcon className='scale-150 text-slate-100' />
+          <h1 className='text-3xl md:text-4xl font-thin text-slate-100 my-auto px-6'>
+            CoinSage
+          </h1>
+        </div>
         <TokenSearchBar
           allTokens={cryptoList}
           onAddToSelectedCoins={handleAddToSelectedCoins}
           myPortfolio={myPortfolio}
           setMyPortfolio={setMyPortfolio}
-          isPortfolioTabActive={activeTab === 'MyPortfolio'} // pass activeTab state as isPortfolioTabActive prop
+          isPortfolioTabActive={activeTab === 'MyPortfolio'}
           handleAddToMyPortfolio={handleAddToMyPortfolio}
         />
       </div>
@@ -98,20 +111,15 @@ const handleAddToMyPortfolio = (tokenToAdd) => {
         <p>Loading data...</p>
       ) : (
         <>
-          {selectedCoins.length > 0 && (
-            // <TrackedCoins
-            //   trackedCoins={selectedCoins}
-            //   onRemoveItem={handleRemoveFromSelectedCoins}
-            // />
-            <Tabs
-              selectedCoins={selectedCoins}
-              onRemoveItem={handleRemoveFromSelectedCoins}
-              myPortfolio={myPortfolio}
-              onRemoveFromPortfolio={onRemoveItem}
-              setActiveTab={setActiveTab}
-              activeTab={activeTab}
-            />
-          )}
+          <Tabs
+            selectedCoins={selectedCoins}
+            onRemoveItem={handleRemoveFromSelectedCoins}
+            myPortfolio={myPortfolio}
+            onRemoveFromPortfolio={onRemoveItem}
+            setActiveTab={setActiveTab}
+            activeTab={activeTab}
+          />
+
           <div className=''>
             <CryptoList
               cryptoList={cryptoList}
@@ -128,4 +136,3 @@ const handleAddToMyPortfolio = (tokenToAdd) => {
 };
 
 export default App;
-

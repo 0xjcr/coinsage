@@ -9,8 +9,8 @@ const Tabs = ({
   onRemoveItem,
   myPortfolio,
   onRemoveFromPortfolio,
-  setActiveTab, // Added setActiveTab as a prop
-  activeTab, // Added activeTab as a prop
+  setActiveTab,
+  activeTab,
 }) => {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
@@ -23,7 +23,7 @@ const Tabs = ({
         <button
           className={`${
             activeTab === 'Tracking'
-              ? 'text-slate-700  border-b-2 border-cyan-500 px-4 py-1 '
+              ? 'text-slate-100  border-b-2 border-cyan-500 px-4 py-1 '
               : 'text-gray-500 border-b-2 px-4 py-1'
           } text-lg font-medium`}
           onClick={() => handleTabClick('Tracking')}
@@ -38,7 +38,7 @@ const Tabs = ({
         <button
           className={`${
             activeTab === 'MyPortfolio'
-              ? 'text-slate-700  border-b-2 border-cyan-500 px-4 py-1 '
+              ? 'text-slate-100  border-b-2 border-cyan-500 px-4 py-1 '
               : 'text-gray-500 border-b-2 px-4 py-1'
           } text-lg font-medium`}
           onClick={() => handleTabClick('MyPortfolio')}
@@ -52,7 +52,6 @@ const Tabs = ({
         </button>
       </div>
 
-      {/* Tab content */}
       {activeTab === 'Tracking' && (
         <TrackedCoins
           trackedCoins={selectedCoins}

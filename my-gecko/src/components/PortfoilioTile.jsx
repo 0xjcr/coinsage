@@ -13,51 +13,30 @@ const PortfoilioTile = ({
   handleQuantityChange,
   percentageOfPortfolio,
 }) => {
-
-function formatNumber(num) {
-  if (Math.abs(num) >= 1.0e9) {
-    return (Math.abs(num) / 1.0e9).toFixed(3) + 'B';
-  } else if (Math.abs(num) >= 1.0e6) {
-    return (Math.abs(num) / 1.0e6).toFixed(3) + 'M';
-  } else if (Math.abs(num) >= 1.0e3) {
-    return (Math.abs(num) / 1.0e3).toFixed(3) + 'K';
-  } else {
-    return Math.abs(num);
-  }
-}
-    
-const formattedQuantity = formatNumber(quantity);
-
-
+ 
   return (
     <div
       key={coin.id}
-      className='grid grid-cols-[0.5fr,1fr,0.5fr,0.5fr,1fr,1fr,1fr] items-center relative m-1 mx-2  space-x-2 border border-gray-300 rounded w-full shadow-cyan-400/20 shadow-sm '
+      className='grid grid-cols-[0.5fr,1fr,0.5fr,0.5fr,1fr,1fr,1fr,0.25fr] items-center relative m-1 mx-2  space-x-2 border border-gray-300 rounded w-full shadow-cyan-400/20 shadow-sm text-cyan-200'
     >
-      <button
-        onClick={() => onRemoveItem(coin.id)}
-        className='absolute top-0 right-0 p-1'
-      >
-        <CloseIcon />
-      </button>
-      {/* <p className=''>
+      <p className='ml-1 w-6ch border-b border-cyan-400 flex items-center justify-start text-slate-100'>
         {percentageOfPortfolio === 100
           ? '100'
           : Math.floor(percentageOfPortfolio * 100) / 100 > 99.99
           ? '99.99'
           : (Math.floor(percentageOfPortfolio * 100) / 100).toFixed(2)}
         %
-      </p> */}
-
+      </p>
       <p className=''>{coin.name}</p>
-      <p className=''>{coin.symbol.toUpperCase()}</p>
+      <p className='text-2xl text-slate-100'>{coin.symbol.toUpperCase()}</p>
       <input
-        className='focus:bg-transparent focus:ring-0 active:ring-0 focus:outline-none'
+        className='focus:bg-transparent focus:ring-0 active:ring-0 focus:outline-none bg-transparent border '
         type='text'
-        placeholder='Enter quantity'
-        value={formattedQuantity === '' ? '' : formattedQuantity}
+        placeholder=''
+        value={quantity}
         size='7'
         maxLength='7'
+        step='any' // Allow decimal increments
         onFocus={(e) => {
           if (e.target.value === '0') {
             handleQuantityChange(coin.id, '');
@@ -105,6 +84,12 @@ const formattedQuantity = formatNumber(quantity);
           maximumFractionDigits: 2,
         })}
       </p>
+      <button
+        onClick={() => onRemoveItem(coin.id)}
+        className='flex items-center justify-center p-1 text-gray-200 hover:text-cyan-200'
+      >
+        <CloseIcon />
+      </button>
     </div>
   );
 };
